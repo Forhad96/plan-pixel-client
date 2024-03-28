@@ -1,9 +1,13 @@
 import { AuthContext } from "@/Providers/AuthProviders";
 import useAxios from "@/hooks/useAxios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+
+//payment getWay images
+import sslcommarz from "@/assets/Payment/sslcommarz.png";
 
 const PaymentInfo = ({ planName }) => {
   const router = useRouter();
@@ -66,7 +70,7 @@ const PaymentInfo = ({ planName }) => {
             Please Select your prefer payment options
           </h3>
           <>
-            <ul className="grid w-full gap-6 md:grid-cols-2">
+            <ul className="grid w-full gap-6 md:grid-cols-3">
               <li>
                 <input
                   type="radio"
@@ -134,6 +138,7 @@ const PaymentInfo = ({ planName }) => {
                   </svg>
                 </label>
               </li>
+              <button onClick={handleUddoktaPay}>uddokataPay</button>
             </ul>
           </>
         </div>
