@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
+import axios from 'axios';
 //payment getWay images
 import sslcommarz from "@/assets/Payment/sslcommarz.png";
 
@@ -38,6 +38,38 @@ const PaymentInfo = ({ planName }) => {
       console.log(error);
     }
   };
+
+  const handleUddoktaPay = ()=>{
+
+const options = {
+  method: "POST",
+  url: "https://sandbox.uddoktapay.com/api/checkout-v2",
+  headers: {
+    accept: "application/json",
+    "RT-UDDOKTAPAY-API-KEY": "982d381360a69d419689740d9f2e26ce36fb7a50",
+    "content-type": "application/json",
+  },
+  data: {
+    full_name: "John Doe",
+    email: "userEmail@gmail.com",
+    amount: "100",
+    metadata: { user_id: "10", order_id: "50" },
+    redirect_url: "https://your-domain.com/success",
+    cancel_url: "https://your-domain.com/cancel",
+    webhook_url: "https://your-domain.com/ipn",
+  },
+};
+
+axios
+  .request(options)
+  .then(function (response) {
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
+  }
 
   // const handlePay = async () => {
   //   try {
@@ -138,7 +170,6 @@ const PaymentInfo = ({ planName }) => {
                   </svg>
                 </label>
               </li>
-              <button onClick={handleUddoktaPay}>uddokataPay</button>
             </ul>
           </>
         </div>
@@ -204,6 +235,12 @@ const PaymentInfo = ({ planName }) => {
           Submit
         </button>
       </form>
+      <button
+        onClick={handleUddoktaPay}
+        className="text-white bg-cyan-700 my-5 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+      >
+        uddokataPay
+      </button>
     </div>
   );
 };
